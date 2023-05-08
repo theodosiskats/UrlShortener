@@ -5,7 +5,9 @@ This is a URL shortening Azure Function app that demonstrates how to create an H
 
 The idea behind this app is to allow users to create a short URL for a longer one, making it easier to share and remember. When the user passes the short URL, the app will redirect them to the original URL.
 
-Live Demo: http.
+Frontend Application Repository: [Here](https://github.com/theodosiskats/UrlShortener-FrontEnd)
+
+Live Demo: [Here](https://tkurl.herokuapp.com/)
 
 ## Prerequisites
 
