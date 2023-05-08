@@ -56,7 +56,6 @@ public static class UrlShortener
                 var projection = Builders<UrlModel>.Projection.Exclude(r => r.Id);
 
                 var result = await collection.Find(filter).Project(projection).FirstOrDefaultAsync();
-                Console.WriteLine(result.AsBsonValue);
 
                 return new OkObjectResult(result[0].AsBsonValue);
 
