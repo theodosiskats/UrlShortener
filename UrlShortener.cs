@@ -32,7 +32,7 @@ public static class UrlShortener
         HttpRequest req, ILogger log)
     {
         var client = new MongoClient(System.Environment.GetEnvironmentVariable("MongoDBAtlasConnectionString"));
-        var database = client.GetDatabase("MongoOnlineGrocery");
+        var database = client.GetDatabase("UrlShortener");
         var collection = database.GetCollection<UrlModel>("urls");
 
         try
@@ -43,12 +43,11 @@ public static class UrlShortener
             string originalUrl = req.Query["original"];
 
             if (string.IsNullOrEmpty(shortenedUrl) && string.IsNullOrEmpty(originalUrl)
-                || string.IsNullOrWhiteSpace(shortenedUrl) && string.IsNullOrWhiteSpace(originalUrl))
+                  || string.IsNullOrWhiteSpace(shortenedUrl) && string.IsNullOrWhiteSpace(originalUrl))
             {
                 return new BadRequestObjectResult("Please enter a url");
             }
 
-            //Return original URL logic
             if (string.IsNullOrEmpty(originalUrl))
             {
                 var filter = Builders<UrlModel>.Filter
@@ -57,8 +56,8 @@ public static class UrlShortener
                 var projection = Builders<UrlModel>.Projection.Exclude(r => r.Id);
 
                 var result = await collection.Find(filter).Project(projection).FirstOrDefaultAsync();
+                Console.WriteLine(result.AsBsonValue);
 
-                //Return Original URL logic
                 return new OkObjectResult(result[0].AsBsonValue);
 
             }
